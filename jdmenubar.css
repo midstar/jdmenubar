@@ -41,7 +41,16 @@
     border-style: solid;
 }
 
-.jdmenu-right-elem {
+.jdmenu-item-left {
+    margin-left: 0;
+    width: 15px;
+    color: var(--jdmenu-symbol-color);
+}
+
+.jdmenu-item-middle {
+}
+
+.jdmenu-item-right {
     margin-left: auto;
     color: var(--jdmenu-symbol-color);
 }

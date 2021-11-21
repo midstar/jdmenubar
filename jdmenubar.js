@@ -28,12 +28,29 @@ class MenuBar {
     // sub menu elements 
     parseMenuItems(menuElement, menuItems) {
         const myself = this;
+        const isTopMenuItem = (menuElement == this.menuBarElement);
         for (var i = 0 ; i < menuItems.length ; i++) {
             const menuItem = menuItems[i];
             const menuItemElement = document.createElement("div");
             menuItemElement.classList.add("jdmenu-item");
-            menuItemElement.innerText = menuItem["text"];
             menuItemElement.jdmenu_menu = menuElement;
+            var leftElement = null;
+            var middleElement = null;
+            var rightElement = null;
+            if (isTopMenuItem == false) {
+                leftElement = document.createElement("span");
+                leftElement.classList.add("jdmenu-item-left");
+                middleElement = document.createElement("span");
+                middleElement.classList.add("jdmenu-item-middle");
+                middleElement.innerText = menuItem["text"];
+                rightElement = document.createElement("span");
+                rightElement.classList.add("jdmenu-item-right");
+                menuItemElement.appendChild(leftElement);
+                menuItemElement.appendChild(middleElement);
+                menuItemElement.appendChild(rightElement);
+            } else {
+                menuItemElement.innerText = menuItem["text"];
+            }
             menuElement.appendChild(menuItemElement);
 
             if ("subMenuItems" in menuItem) {
@@ -43,29 +60,26 @@ class MenuBar {
                 subMenuElement.jdmenu_parentMenu = menuElement;
                 menuElement.appendChild(subMenuElement);
                 this.parseMenuItems(subMenuElement, menuItem["subMenuItems"], false);
-                if (menuElement == this.menuBarElement) {
+                if (isTopMenuItem) {
                     menuItemElement.onclick = function () {
                         myself.toggleSubMenu(myself, subMenuElement);
                     };
                 } else {
-                    const rightSymbolElement = document.createElement("span");
-                    rightSymbolElement.classList.add("jdmenu-right-elem");
-                    rightSymbolElement.classList.add("jdmenu-symbol");
-                    rightSymbolElement.innerText = "▶";
-                    menuItemElement.appendChild(rightSymbolElement);
+                    rightElement.classList.add("jdmenu-symbol");
+                    rightElement.innerText = "▶";
+                    menuItemElement.appendChild(rightElement);
                 }
                 menuItemElement.onmouseover = function () {
                     if (myself.stateOpen) {
                         myself.openSubMenu(myself, subMenuElement);
                     }
                 };
-            } else {
-                if (menuElement != this.menuBarElement) {
-                    // To close other sub-menues
-                    menuItemElement.onmouseover = function () {
-                        myself.openSubMenu(myself, menuElement);
-                    };
-                }
+            } else if (isTopMenuItem == false) {
+                // To close other sub-menues
+                menuItemElement.onmouseover = function () {
+                    myself.openSubMenu(myself, menuElement);
+                };
+
                 if ("handler" in menuItem) {
                     menuItemElement.onclick = function () {
                         myself.closeAll(myself);
@@ -73,10 +87,8 @@ class MenuBar {
                     };                    
                 }
                 if ("shortcut" in menuItem) {
-                    const rightSymbolElement = document.createElement("span");
-                    rightSymbolElement.classList.add("jdmenu-right-elem");
-                    rightSymbolElement.innerText = menuItem["shortcut"];
-                    menuItemElement.appendChild(rightSymbolElement);                
+                    rightElement.innerText = menuItem["shortcut"];
+                    menuItemElement.appendChild(rightElement);                
                 }
 
             }
