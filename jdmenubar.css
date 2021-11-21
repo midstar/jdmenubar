@@ -23,7 +23,7 @@
 
 .jdmenu-submenu {
     display: none;
-    position: absolute;
+    position: fixed;
     z-index: 1;
     width: 150px;
     background-color: rgb(250,250,250);

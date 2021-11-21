@@ -51,6 +51,7 @@ class MenuBar {
 
             const menuItemElement = subMenuElement.jdmenu_parentItem; 
             const pos = menuItemElement.getBoundingClientRect();
+            console.log(pos);
             if (subMenuElement.jdmenu_parentMenu == myself.menuBarElement) {
                 // Drop down
                 subMenuElement.style.left = pos.left;

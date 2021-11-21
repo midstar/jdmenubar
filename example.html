@@ -28,7 +28,11 @@ window.onload = function() {
             { text : "Open" },
             { text : "Open Recent", subMenuItems : [
                 { text : "File1.txt"},
-                { text : "File2.txt"}
+                { text : "File2.txt"},
+                { text : "Or even older" , subMenuItems : [
+                    { text : "File3.txt"},
+                    { text : "File4.txt"},
+                ]}
             ]},
             { text : "Save"},
             { text : "Save As..."}
@@ -38,7 +42,13 @@ window.onload = function() {
             { text : "Copy" },
             { text : "Paste"},
         ]}, 
-        { text : "Help"} 
+        { text : "Help", subMenuItems : [
+            { text : "More" , subMenuItems : [
+                { text : "This" },
+                { text : "And that" },
+            ]},
+            { text : "About"},
+        ]}, 
     ]
     menubar = new MenuBar(document.getElementById("menu-bar"), menuItems);
 }
