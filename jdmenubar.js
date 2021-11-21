@@ -16,6 +16,11 @@ class MenuBar {
                 myself.closeAll(myself);
             }
         });
+        document.body.addEventListener("keydown", function(e){
+            if ((e.key == "Escape") && myself.stateOpen) {
+                myself.closeAll(myself);
+            }
+        });
         this.parseMenuItems(menuBarElement, menuItems);
     }
 
