@@ -1,8 +1,21 @@
 class MenuBar {
     constructor(menuBarElement, menuItems) {
+        const myself = this;
         this.menuBarElement = menuBarElement;
         this.stateOpen = false;
+        this.stateFocus = false;
         menuBarElement.classList.add("jdmenu-bar");
+        menuBarElement.onmouseleave = function () {
+            myself.stateFocus = false;
+        }
+        menuBarElement.onmouseenter = function () {
+            myself.stateFocus = true;
+        }
+        document.body.addEventListener("click", function(){
+            if (myself.stateOpen && (myself.stateFocus == false)) {
+                myself.closeAll(myself);
+            }
+        });
         this.parseMenuItems(menuBarElement, menuItems);
     }
 
@@ -70,13 +83,10 @@ class MenuBar {
     // myself is this object. Needed since the method is called as a 
     // callback function.
     openSubMenu(myself, subMenuElement) {
-        const menuItemElement = subMenuElement.jdmenu_parentItem; 
-        myself.stateOpen = true; // May be overridden below
+        
         // Hide all menus
-        const subMenuElements = myself.menuBarElement.getElementsByClassName("jdmenu-submenu");
-        for (var element of subMenuElements) {
-            element.style.display = "none";
-        }
+        this.closeAll(myself);
+        myself.stateOpen = true;
         // But display the menu that we just opened and parents
         var menuItem = subMenuElement;
         while(menuItem != myself.menuBarElement) {
@@ -84,6 +94,7 @@ class MenuBar {
             menuItem = menuItem.jdmenu_parentMenu;
         }
 
+        const menuItemElement = subMenuElement.jdmenu_parentItem; 
         const pos = menuItemElement.getBoundingClientRect();
         if (subMenuElement.jdmenu_parentMenu == myself.menuBarElement) {
             // Drop down
@@ -94,6 +105,16 @@ class MenuBar {
             subMenuElement.style.left = pos.right;
             subMenuElement.style.top = pos.top;
         }
+    }
+
+    // myself is this object. Needed since the method is called as a 
+    // callback function.
+    closeAll(myself) {
+        const subMenuElements = myself.menuBarElement.getElementsByClassName("jdmenu-submenu");
+        for (var element of subMenuElements) {
+            element.style.display = "none";
+        }
+        myself.stateOpen = false;
     }
     
 }
