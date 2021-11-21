@@ -60,6 +60,12 @@ class MenuBar {
                         myself.openSubMenu(myself, menuElement);
                     };
                 }
+                if ("handler" in menuItem) {
+                    menuItemElement.onclick = function () {
+                        myself.closeAll(myself);
+                        menuItem["handler"]();
+                    };                    
+                }
             }
         }
     }

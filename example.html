@@ -24,7 +24,7 @@ body {
 window.onload = function() {
     const menuItems = [
         { text : "File", subMenuItems : [
-            { text : "New" },
+            { text : "New", handler : newClicked },
             { text : "Open" },
             { text : "Open Recent", subMenuItems : [
                 { text : "File1.txt"},
@@ -47,10 +47,18 @@ window.onload = function() {
                 { text : "This" },
                 { text : "And that" },
             ]},
-            { text : "About"},
+            { text : "About", handler : aboutClicked},
         ]}, 
     ]
     menubar = new MenuBar(document.getElementById("menu-bar"), menuItems);
+}
+
+function newClicked() {
+    alert("Clicked new");
+}
+
+function aboutClicked() {
+    alert("About new");
 }
 
 </script>
