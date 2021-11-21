@@ -38,9 +38,11 @@ class MenuBar {
                 subMenuElement.jdmenu_parentMenu = menuElement;
                 menuElement.appendChild(subMenuElement);
                 this.parseMenuItems(subMenuElement, menuItem["subMenuItems"], false);
-                menuItemElement.onclick = function () {
-                    myself.toggleSubMenu(myself, subMenuElement);
-                };
+                if (menuElement == this.menuBarElement) {
+                    menuItemElement.onclick = function () {
+                        myself.toggleSubMenu(myself, subMenuElement);
+                    };
+                }
                 menuItemElement.onmouseover = function () {
                     if (myself.stateOpen) {
                         myself.openSubMenu(myself, subMenuElement);
