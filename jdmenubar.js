@@ -47,6 +47,12 @@ class MenuBar {
                     menuItemElement.onclick = function () {
                         myself.toggleSubMenu(myself, subMenuElement);
                     };
+                } else {
+                    const rightSymbolElement = document.createElement("span");
+                    rightSymbolElement.classList.add("jdmenu-right-elem");
+                    rightSymbolElement.classList.add("jdmenu-symbol");
+                    rightSymbolElement.innerText = "▶";
+                    menuItemElement.appendChild(rightSymbolElement);
                 }
                 menuItemElement.onmouseover = function () {
                     if (myself.stateOpen) {
@@ -66,6 +72,13 @@ class MenuBar {
                         menuItem["handler"]();
                     };                    
                 }
+                if ("shortcut" in menuItem) {
+                    const rightSymbolElement = document.createElement("span");
+                    rightSymbolElement.classList.add("jdmenu-right-elem");
+                    rightSymbolElement.innerText = menuItem["shortcut"];
+                    menuItemElement.appendChild(rightSymbolElement);                
+                }
+
             }
         }
     }

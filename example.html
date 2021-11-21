@@ -24,7 +24,7 @@ body {
 window.onload = function() {
     const menuItems = [
         { text : "File", subMenuItems : [
-            { text : "New", handler : newClicked },
+            { text : "New", handler : newClicked, shortcut : "Ctrl+N" },
             { text : "Open" },
             { text : "Open Recent", subMenuItems : [
                 { text : "File1.txt"},
@@ -34,8 +34,8 @@ window.onload = function() {
                     { text : "File4.txt"},
                 ]}
             ]},
-            { text : "Save"},
-            { text : "Save As..."}
+            { text : "Save", shortcut : "Ctrl+S"},
+            { text : "Save As...", shortcut : "Ctrl+Shift+S" }
         ]}, 
         { text : "Edit", subMenuItems : [
             { text : "Cut" },
