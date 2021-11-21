@@ -1,0 +1,55 @@
+<!--
+    jdmenubar Example
+
+    Copyright (c) Joel Midstjärna
+-->
+<html>
+
+<!--------------------------------------------------------------------------->
+<meta charset="utf-8"/>
+<head>
+<title id="main-title">Javascript Desktop Menu Bar Example</title>
+<link rel="stylesheet" href="jdmenubar.css" type="text/css">
+<script src="jdmenubar.js"></script>
+
+<style>
+body {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+</style>
+
+<script>
+
+window.onload = function() {
+    const menuItems = [
+        { text : "File", subMenuItems : [
+            { text : "New" },
+            { text : "Open" },
+            { text : "Open Recent", subMenuItems : [
+                { text : "File1.txt"},
+                { text : "File2.txt"}
+            ]},
+            { text : "Save"},
+            { text : "Save As..."}
+        ]}, 
+        { text : "Edit", subMenuItems : [
+            { text : "Cut" },
+            { text : "Copy" },
+            { text : "Paste"},
+        ]}, 
+        { text : "Help"} 
+    ]
+    menubar = new MenuBar(document.getElementById("menu-bar"), menuItems);
+}
+
+</script>
+
+</head>
+
+<!--------------------------------------------------------------------------->
+<body>
+    <div id="menu-bar"></div>
+</body>
+
+</html>
