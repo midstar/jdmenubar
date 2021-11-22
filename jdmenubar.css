@@ -3,7 +3,6 @@
     --jdmenu-border-color: rgb(200,200,200);
     --jdmenu-focus-color: rgb(235,235,235);
     --jdmenu-symbol-color:rgb(100,100,100);
-    --jdmenu-width: 250px;
 }
 
 .jdmenu-bar {
@@ -34,7 +33,6 @@
     display: none;
     position: fixed;
     z-index: 5;
-    width: var(--jdmenu-width);
     background-color: var(--jdmenu-bg-color);
     border-color: var(--jdmenu-border-color);
     border-width: 1px;
@@ -49,6 +47,7 @@
 }
 
 .jdmenu-item-middle {
+    padding-right: 20px;
 }
 
 .jdmenu-item-right {
