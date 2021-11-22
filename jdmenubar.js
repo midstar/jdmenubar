@@ -31,6 +31,14 @@ class MenuBar {
         const isTopMenuItem = (menuElement == this.menuBarElement);
         for (var i = 0 ; i < menuItems.length ; i++) {
             const menuItem = menuItems[i];
+            if (("text" in menuItem) == false) {
+                if (("separator" in menuItem) && menuItem["separator"] == true) {
+                    const separatorElement = document.createElement("hr");
+                    separatorElement.classList.add("jdmenu-separator");
+                    menuElement.appendChild(separatorElement);
+                }
+                continue;
+            }
             const menuItemElement = document.createElement("div");
             menuItemElement.classList.add("jdmenu-item");
             menuItemElement.jdmenu_menu = menuElement;
