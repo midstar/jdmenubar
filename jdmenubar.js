@@ -36,9 +36,6 @@ class MenuBar {
             menuItemElement.jdmenu_menu = menuElement;
             menuElement.appendChild(menuItemElement);
 
-            var leftElement = null;
-            var middleElement = null;
-            var rightElement = null;
             if (isTopMenuItem == false) {
                 const leftElement = document.createElement("span");
                 leftElement.classList.add("jdmenu-item-left");
@@ -103,8 +100,6 @@ class MenuBar {
                     };                    
                 }
             }
-
-
         }
     }
 
