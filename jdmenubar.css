@@ -25,6 +25,15 @@
     cursor: default;
 }
 
+.jdmenu-item-disabled {
+    color: rgb(100,100,100);
+    background-color: var(--jdmenu-bg-color);
+}
+
+.jdmenu-item-disabled:hover {
+    background-color: var(--jdmenu-bg-color);
+}
+
 .jdmenu-bar > .jdmenu-item {
     display: inline-block;
 }
@@ -43,7 +52,6 @@
     margin-left: 0;
     width: 20px;
     font-size: 10px;
-    color: var(--jdmenu-symbol-color);
 }
 
 .jdmenu-item-middle {

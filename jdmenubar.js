@@ -40,19 +40,38 @@ class MenuBar {
             var middleElement = null;
             var rightElement = null;
             if (isTopMenuItem == false) {
-                leftElement = document.createElement("span");
+                const leftElement = document.createElement("span");
                 leftElement.classList.add("jdmenu-item-left");
-                middleElement = document.createElement("span");
+
+                const middleElement = document.createElement("span");
                 middleElement.classList.add("jdmenu-item-middle");
-                middleElement.innerText = menuItem["text"];
-                rightElement = document.createElement("span");
+
+                const rightElement = document.createElement("span");
                 rightElement.classList.add("jdmenu-item-right");
+
                 menuItemElement.appendChild(leftElement);
                 menuItemElement.appendChild(middleElement);
                 menuItemElement.appendChild(rightElement);
+
+                if ("icon" in menuItem) {
+                    leftElement.innerHTML = menuItem["icon"]; 
+                }
+                middleElement.innerHTML = menuItem["text"];
+                if ("subMenuItems" in menuItem) {
+                    rightElement.classList.add("jdmenu-symbol");
+                    rightElement.innerText = "▶";
+                } else if ("shortcut" in menuItem) {
+                    rightElement.innerHTML = menuItem["shortcut"];                
+                }
             } else {
                 menuItemElement.innerHTML = menuItem["text"];
             }
+
+            if (("enabled" in menuItem) && (menuItem["enabled"] == false)) {
+                menuItemElement.classList.add("jdmenu-item-disabled");
+                continue;
+            }
+
 
             if ("subMenuItems" in menuItem) {
                 const subMenuElement = document.createElement("div");
@@ -65,10 +84,6 @@ class MenuBar {
                     menuItemElement.onclick = function () {
                         myself.toggleSubMenu(myself, subMenuElement);
                     };
-                } else {
-                    rightElement.classList.add("jdmenu-symbol");
-                    rightElement.innerText = "▶";
-                    menuItemElement.appendChild(rightElement);
                 }
                 menuItemElement.onmouseover = function () {
                     if (myself.stateOpen) {
@@ -87,14 +102,8 @@ class MenuBar {
                         menuItem["handler"]();
                     };                    
                 }
-                if ("shortcut" in menuItem) {
-                    rightElement.innerHTML = menuItem["shortcut"];                
-                }
             }
 
-            if (("icon" in menuItem) && (isTopMenuItem == false)) {
-                leftElement.innerHTML = menuItem["icon"];            
-            }
 
         }
     }
