@@ -43,7 +43,8 @@
 
 .jdmenu-item-left {
     margin-left: 0;
-    width: 15px;
+    width: 20px;
+    font-size: 10px;
     color: var(--jdmenu-symbol-color);
 }
 

@@ -34,6 +34,8 @@ class MenuBar {
             const menuItemElement = document.createElement("div");
             menuItemElement.classList.add("jdmenu-item");
             menuItemElement.jdmenu_menu = menuElement;
+            menuElement.appendChild(menuItemElement);
+
             var leftElement = null;
             var middleElement = null;
             var rightElement = null;
@@ -49,9 +51,8 @@ class MenuBar {
                 menuItemElement.appendChild(middleElement);
                 menuItemElement.appendChild(rightElement);
             } else {
-                menuItemElement.innerText = menuItem["text"];
+                menuItemElement.innerHTML = menuItem["text"];
             }
-            menuElement.appendChild(menuItemElement);
 
             if ("subMenuItems" in menuItem) {
                 const subMenuElement = document.createElement("div");
@@ -87,11 +88,14 @@ class MenuBar {
                     };                    
                 }
                 if ("shortcut" in menuItem) {
-                    rightElement.innerText = menuItem["shortcut"];
-                    menuItemElement.appendChild(rightElement);                
+                    rightElement.innerHTML = menuItem["shortcut"];                
                 }
-
             }
+
+            if (("icon" in menuItem) && (isTopMenuItem == false)) {
+                leftElement.innerHTML = menuItem["icon"];            
+            }
+
         }
     }
 

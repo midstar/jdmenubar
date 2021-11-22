@@ -24,7 +24,7 @@ body {
 window.onload = function() {
     const menuItems = [
         { text : "File", subMenuItems : [
-            { text : "New", handler : newClicked, shortcut : "Ctrl+N" },
+            { text : "New", handler : newClicked, shortcut : "Ctrl+N", icon : "✏"},
             { text : "Open" },
             { text : "Open Recent", subMenuItems : [
                 { text : "File1.txt"},
@@ -34,16 +34,16 @@ window.onload = function() {
                     { text : "File4.txt"},
                 ]}
             ]},
-            { text : "Save", shortcut : "Ctrl+S"},
+            { text : "Save", shortcut : "Ctrl+S", icon : "&#128190;"},
             { text : "Save As...", shortcut : "Ctrl+Shift+S" }
         ]}, 
         { text : "Edit", subMenuItems : [
-            { text : "Cut" },
-            { text : "Copy" },
-            { text : "Paste"},
+            { text : "Cut", icon : "✂️" },
+            { text : "Copy", icon : "📄" },
+            { text : "Paste", icon : "📋"},
         ]}, 
         { text : "Help", subMenuItems : [
-            { text : "More" , subMenuItems : [
+            { text : "More", icon : "☃", subMenuItems : [
                 { text : "This" },
                 { text : "And that" },
             ]},
