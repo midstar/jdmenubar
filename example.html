@@ -28,7 +28,7 @@ window.onload = function() {
         { text : "File", subMenuItems : [
             { text : "New", handler : newClicked, shortcut : "Ctrl+N", icon : "✏"},
             { text : "Open" },
-            { text : "Open Recent", subMenuItems : [
+            { id : "open_recent", text : "Open Recent", subMenuItems : [
                 { text : "File1.txt"},
                 { text : "File2.txt"},
                 { separator : true},
@@ -41,7 +41,7 @@ window.onload = function() {
             { text : "Save", shortcut : "Ctrl+S", icon : "&#128190;", enabled : false },
             { text : "Save As...", shortcut : "Ctrl+Shift+S" }
         ]}, 
-        { text : "Edit", subMenuItems : [
+        { id : "edit", text : "Edit", subMenuItems : [
             { text : "Cut", icon : "✂️" },
             { text : "Copy", icon : "📄" },
             { text : "Paste", icon : "📋"},
@@ -66,6 +66,8 @@ function aboutClicked() {
 }
 
 function updateMenu() {
+    menubar.getItemWithId("open_recent").enabled = false;
+    menubar.getItemWithId("edit").text = "New Name";
     menubar.update();
 }
 

@@ -1,24 +1,29 @@
 class MenuBar {
+    #menuBarElement;
+    #menuItems;
+    #stateOpen;
+    #stateFocus;
+
     constructor(menuBarElement, menuItems) {
+        this.#menuBarElement = menuBarElement;
+        this.#menuItems = menuItems;
+        this.#stateOpen = false;
+        this.#stateFocus = false;
         const myself = this;
-        this.menuBarElement = menuBarElement;
-        this.menuItems = menuItems;
-        this.stateOpen = false;
-        this.stateFocus = false;
         menuBarElement.classList.add("jdmenu-bar");
         menuBarElement.onmouseleave = function () {
-            myself.stateFocus = false;
+            myself.#stateFocus = false;
         }
         menuBarElement.onmouseenter = function () {
-            myself.stateFocus = true;
+            myself.#stateFocus = true;
         }
         document.body.addEventListener("click", function(){
-            if (myself.stateOpen && (myself.stateFocus == false)) {
+            if (myself.#stateOpen && (myself.#stateFocus == false)) {
                 myself.#closeAll(myself);
             }
         });
         document.body.addEventListener("keydown", function(e){
-            if ((e.key == "Escape") && myself.stateOpen) {
+            if ((e.key == "Escape") && myself.#stateOpen) {
                 myself.#closeAll(myself);
             }
         });
@@ -29,7 +34,7 @@ class MenuBar {
     // sub menu elements 
     #parseMenuItems(menuElement, menuItems) {
         const myself = this;
-        const isTopMenuItem = (menuElement == this.menuBarElement);
+        const isTopMenuItem = (menuElement == this.#menuBarElement);
         for (var i = 0 ; i < menuItems.length ; i++) {
             const menuItem = menuItems[i];
             if (("text" in menuItem) == false) {
@@ -85,7 +90,7 @@ class MenuBar {
                     };
                 }
                 menuItemElement.onmouseover = function () {
-                    if (myself.stateOpen) {
+                    if (myself.#stateOpen) {
                         myself.#openSubMenu(myself, subMenuElement);
                     }
                 };
@@ -122,9 +127,9 @@ class MenuBar {
     #closeSubMenu(myself, subMenuElement) {
         const menuItemElement = subMenuElement.jdmenu_parentItem; 
         subMenuElement.style.display = "none";
-        if (menuItemElement.jdmenu_menu == myself.menuBarElement) {
+        if (menuItemElement.jdmenu_menu == myself.#menuBarElement) {
             // Closed top element. Menu is closed
-            myself.stateOpen = false;
+            myself.#stateOpen = false;
         }
     }   
 
@@ -134,17 +139,17 @@ class MenuBar {
         
         // Hide all menus
         this.#closeAll(myself);
-        myself.stateOpen = true;
+        myself.#stateOpen = true;
         // But display the menu that we just opened and parents
         var menuItem = subMenuElement;
-        while(menuItem != myself.menuBarElement) {
+        while(menuItem != myself.#menuBarElement) {
             menuItem.style.display = "block";
             menuItem = menuItem.jdmenu_parentMenu;
         }
 
         const menuItemElement = subMenuElement.jdmenu_parentItem; 
         const pos = menuItemElement.getBoundingClientRect();
-        if (subMenuElement.jdmenu_parentMenu == myself.menuBarElement) {
+        if (subMenuElement.jdmenu_parentMenu == myself.#menuBarElement) {
             // Drop down
             subMenuElement.style.left = pos.left;
             subMenuElement.style.top = pos.bottom;
@@ -158,25 +163,50 @@ class MenuBar {
     // myself is this object. Needed since the method is called as a 
     // callback function.
     #closeAll(myself) {
-        const subMenuElements = myself.menuBarElement.getElementsByClassName("jdmenu-submenu");
+        const subMenuElements = myself.#menuBarElement.getElementsByClassName("jdmenu-submenu");
         for (var element of subMenuElements) {
             element.style.display = "none";
         }
-        myself.stateOpen = false;
+        myself.#stateOpen = false;
+    }
+
+    // Get item with id (value if id property). Useful when updating items
+    // in the menu. Call the update() method afterwards to make the change
+    // have effect.
+    // Returns null if no such element exists.
+    getItemWithId(id) {
+        return this.#getItemWithIdOf(id, this.#menuItems);
+    }
+
+    // Recursive function to traverse all items searching for id.
+    #getItemWithIdOf(id, menuItems) {
+        for (var i = 0 ; i < menuItems.length ; i++) {
+            const menuItem = menuItems[i]; 
+            if (("id" in menuItem) && (menuItem["id"] == id))
+                return menuItem;
+            if (("subMenuItems" in menuItem)) {
+                const result = this.#getItemWithIdOf(id, menuItem["subMenuItems"]);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
     }
 
     // Update menu in case the item objects has changed
     update() {
         // Remove all items
-        while (this.menuBarElement.firstChild) {
-            this.menuBarElement.removeChild(this.menuBarElement.firstChild);
+        while (this.#menuBarElement.firstChild) {
+            this.#menuBarElement.removeChild(this.#menuBarElement.firstChild);
         }
+
         // Reset state
-        this.stateOpen = false;
-        this.stateFocus = false;
+        this.#stateOpen = false;
+        this.#stateFocus = false;
 
         // Re-parse the elements
-        this.#parseMenuItems(this.menuBarElement, this.menuItems);
+        this.#parseMenuItems(this.#menuBarElement, this.#menuItems);
     }
     
 }
