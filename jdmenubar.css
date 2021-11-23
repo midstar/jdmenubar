@@ -2,7 +2,7 @@
     --jdmenu-bg-color: rgb(250,250,250);
     --jdmenu-border-color: rgb(200,200,200);
     --jdmenu-focus-color: rgb(235,235,235);
-    --jdmenu-symbol-color:rgb(100,100,100);
+    --jdmenu-shortcut-color:rgb(100,100,100);
 }
 
 .jdmenu-bar {
@@ -49,26 +49,27 @@
     border-style: solid;
 }
 
-.jdmenu-item-left {
+.jdmenu-submenu hr {
+    border-top: 1px solid var(--jdmenu-border-color);
+}
+
+.jdmenu-item > span:nth-child(1) {
     margin-left: 0;
     width: 20px;
     font-size: 10px;
 }
 
-.jdmenu-item-middle {
+.jdmenu-item > span:nth-child(2) {
     padding-right: 20px;
 }
 
-.jdmenu-item-right {
+.jdmenu-item > span:nth-child(3) {
     margin-left: auto;
-    color: var(--jdmenu-symbol-color);
+    color: var(--jdmenu-shortcut-color);
 }
 
-.jdmenu-symbol {
+.jdmenu-submenu-symbol {
     font-size: 7px;
 }
 
-.jdmenu-separator {
-    border-top: 1px solid rgb(200,200,200);
-}
 

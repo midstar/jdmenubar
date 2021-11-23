@@ -33,9 +33,7 @@ class MenuBar {
             const menuItem = menuItems[i];
             if (("text" in menuItem) == false) {
                 if (("separator" in menuItem) && menuItem["separator"] == true) {
-                    const separatorElement = document.createElement("hr");
-                    separatorElement.classList.add("jdmenu-separator");
-                    menuElement.appendChild(separatorElement);
+                    menuElement.appendChild(document.createElement("hr"));
                 }
                 continue;
             }
@@ -46,13 +44,8 @@ class MenuBar {
 
             if (isTopMenuItem == false) {
                 const leftElement = document.createElement("span");
-                leftElement.classList.add("jdmenu-item-left");
-
                 const middleElement = document.createElement("span");
-                middleElement.classList.add("jdmenu-item-middle");
-
                 const rightElement = document.createElement("span");
-                rightElement.classList.add("jdmenu-item-right");
 
                 menuItemElement.appendChild(leftElement);
                 menuItemElement.appendChild(middleElement);
@@ -63,7 +56,7 @@ class MenuBar {
                 }
                 middleElement.innerHTML = menuItem["text"];
                 if ("subMenuItems" in menuItem) {
-                    rightElement.classList.add("jdmenu-symbol");
+                    rightElement.classList.add("jdmenu-submenu-symbol");
                     rightElement.innerText = "▶";
                 } else if ("shortcut" in menuItem) {
                     rightElement.innerHTML = menuItem["shortcut"];                
