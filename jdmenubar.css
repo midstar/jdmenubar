@@ -3,6 +3,8 @@
     --jdmenu-border-color: rgb(200,200,200);
     --jdmenu-focus-color: rgb(235,235,235);
     --jdmenu-shortcut-color:rgb(100,100,100);
+    --jdmenu-font-size: 15px;
+    --jdmenu-font-family: Helvetica;
 }
 
 .jdmenu-bar {
@@ -17,8 +19,8 @@
     align-items : center;
     padding-left: 5px;
     padding-right: 5px;
-    font-family: Helvetica;
-    font-size: 15px;
+    font-family: var(--jdmenu-font-family);
+    font-size: var(--jdmenu-font-size);
 }
 
 .jdmenu-item:hover {
@@ -55,8 +57,8 @@
 
 .jdmenu-item > span:nth-child(1) {
     margin-left: 0;
-    width: 20px;
-    font-size: 10px;
+    width: calc(var(--jdmenu-font-size) * 1.25);
+    font-size: calc(var(--jdmenu-font-size) * 0.66);
 }
 
 .jdmenu-item > span:nth-child(2) {
@@ -69,7 +71,7 @@
 }
 
 .jdmenu-submenu-symbol {
-    font-size: 7px;
+    font-size: calc(var(--jdmenu-font-size) * 0.5);
 }
 
 
