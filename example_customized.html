@@ -1,0 +1,88 @@
+<!--
+    jdmenubar Example with customizable style
+
+    Copyright (c) Joel Midstjärna
+-->
+<html>
+
+<!--------------------------------------------------------------------------->
+<meta charset="utf-8"/>
+<head>
+<title id="main-title">Javascript Desktop Menu Bar Example</title>
+<link rel="stylesheet" href="jdmenubar.css" type="text/css">
+<script src="jdmenubar.js"></script>
+
+<style>
+
+:root {
+    --jdmenu-bg-color: rgb(0,250,250);
+    --jdmenu-border-color: rgb(0,200,200);
+    --jdmenu-focus-color: rgb(0,235,235);
+    --jdmenu-shortcut-color:rgb(0,100,100); /* Also for disabled items */
+    --jdmenu-font-size: 25px;
+    --jdmenu-font-family: "Comic Sans MS", "Comic Sans", cursive;
+    --jdmenu-font-color: rgb(0,0,0);
+}
+
+body {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+</style>
+
+<script>
+
+window.onload = function() {
+    const menuItems = [
+        { text : "File", subMenuItems : [
+            { text : "New", handler : newClicked, shortcut : "Ctrl+N", icon : "✏"},
+            { text : "Open" },
+            { text : "Open Recent", subMenuItems : [
+                { text : "File1.txt"},
+                { text : "File2.txt"},
+                { separator : true},
+                { text : "Or even older" , subMenuItems : [
+                    { text : "File3.txt"},
+                    { text : "File4.txt"},
+                ]}
+            ]},
+            { separator : true},
+            { text : "Save", shortcut : "Ctrl+S", icon : "&#128190;", enabled : false },
+            { text : "Save As...", shortcut : "Ctrl+Shift+S" }
+        ]}, 
+        { text : "Edit", subMenuItems : [
+            { text : "Cut", icon : "✂️" },
+            { text : "Copy", icon : "📄" },
+            { text : "Paste", icon : "📋"},
+        ]}, 
+        { text : "Help", subMenuItems : [
+            { text : "More", icon : "☃", subMenuItems : [
+                { text : "This" },
+                { text : "And that" },
+            ]},
+            { text : "About", handler : aboutClicked},
+        ]}, 
+    ]
+    menubar = new MenuBar(document.getElementById("menu-bar"), menuItems);
+}
+
+function newClicked() {
+    alert("Clicked new");
+}
+
+function aboutClicked() {
+    alert("About new");
+}
+
+</script>
+
+</head>
+
+<!--------------------------------------------------------------------------->
+<body>
+    <div id="menu-bar"></div>
+    <br>
+    Click on the menu bar above
+</body>
+
+</html>
