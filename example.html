@@ -21,6 +21,8 @@ body {
 
 <script>
 
+var menuBar;
+
 window.onload = function() {
     const menuItems = [
         { text : "File", subMenuItems : [
@@ -63,6 +65,10 @@ function aboutClicked() {
     alert("About new");
 }
 
+function updateMenu() {
+    menubar.update();
+}
+
 </script>
 
 </head>
@@ -72,6 +78,8 @@ function aboutClicked() {
     <div id="menu-bar"></div>
     <br>
     Click on the menu bar above
+    <br>
+    <button onclick="updateMenu();">Click here to update menu</button>
 </body>
 
 </html>

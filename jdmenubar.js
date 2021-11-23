@@ -2,6 +2,7 @@ class MenuBar {
     constructor(menuBarElement, menuItems) {
         const myself = this;
         this.menuBarElement = menuBarElement;
+        this.menuItems = menuItems;
         this.stateOpen = false;
         this.stateFocus = false;
         menuBarElement.classList.add("jdmenu-bar");
@@ -13,20 +14,20 @@ class MenuBar {
         }
         document.body.addEventListener("click", function(){
             if (myself.stateOpen && (myself.stateFocus == false)) {
-                myself.closeAll(myself);
+                myself.#closeAll(myself);
             }
         });
         document.body.addEventListener("keydown", function(e){
             if ((e.key == "Escape") && myself.stateOpen) {
-                myself.closeAll(myself);
+                myself.#closeAll(myself);
             }
         });
-        this.parseMenuItems(menuBarElement, menuItems);
+        this.#parseMenuItems(menuBarElement, menuItems);
     }
 
     // Recursive function for generating menu item elements and
     // sub menu elements 
-    parseMenuItems(menuElement, menuItems) {
+    #parseMenuItems(menuElement, menuItems) {
         const myself = this;
         const isTopMenuItem = (menuElement == this.menuBarElement);
         for (var i = 0 ; i < menuItems.length ; i++) {
@@ -77,26 +78,26 @@ class MenuBar {
                 subMenuElement.jdmenu_parentItem = menuItemElement;
                 subMenuElement.jdmenu_parentMenu = menuElement;
                 menuElement.appendChild(subMenuElement);
-                this.parseMenuItems(subMenuElement, menuItem["subMenuItems"], false);
+                this.#parseMenuItems(subMenuElement, menuItem["subMenuItems"], false);
                 if (isTopMenuItem) {
                     menuItemElement.onclick = function () {
-                        myself.toggleSubMenu(myself, subMenuElement);
+                        myself.#toggleSubMenu(myself, subMenuElement);
                     };
                 }
                 menuItemElement.onmouseover = function () {
                     if (myself.stateOpen) {
-                        myself.openSubMenu(myself, subMenuElement);
+                        myself.#openSubMenu(myself, subMenuElement);
                     }
                 };
             } else if (isTopMenuItem == false) {
                 // To close other sub-menues
                 menuItemElement.onmouseover = function () {
-                    myself.openSubMenu(myself, menuElement);
+                    myself.#openSubMenu(myself, menuElement);
                 };
 
                 if ("handler" in menuItem) {
                     menuItemElement.onclick = function () {
-                        myself.closeAll(myself);
+                        myself.#closeAll(myself);
                         menuItem["handler"]();
                     };                    
                 }
@@ -106,19 +107,19 @@ class MenuBar {
 
     // myself is this object. Needed since the method is called as a 
     // callback function.
-    toggleSubMenu(myself, subMenuElement) {
+    #toggleSubMenu(myself, subMenuElement) {
         const menuItemElement = subMenuElement.jdmenu_parentItem; 
         if (subMenuElement.style.display == "block") {
-            this.closeSubMenu(myself, subMenuElement);
+            this.#closeSubMenu(myself, subMenuElement);
         }
         else {
-            this.openSubMenu(myself, subMenuElement);
+            this.#openSubMenu(myself, subMenuElement);
         }
     }
 
      // myself is this object. Needed since the method is called as a 
     // callback function.
-    closeSubMenu(myself, subMenuElement) {
+    #closeSubMenu(myself, subMenuElement) {
         const menuItemElement = subMenuElement.jdmenu_parentItem; 
         subMenuElement.style.display = "none";
         if (menuItemElement.jdmenu_menu == myself.menuBarElement) {
@@ -129,10 +130,10 @@ class MenuBar {
 
     // myself is this object. Needed since the method is called as a 
     // callback function.
-    openSubMenu(myself, subMenuElement) {
+    #openSubMenu(myself, subMenuElement) {
         
         // Hide all menus
-        this.closeAll(myself);
+        this.#closeAll(myself);
         myself.stateOpen = true;
         // But display the menu that we just opened and parents
         var menuItem = subMenuElement;
@@ -156,12 +157,26 @@ class MenuBar {
 
     // myself is this object. Needed since the method is called as a 
     // callback function.
-    closeAll(myself) {
+    #closeAll(myself) {
         const subMenuElements = myself.menuBarElement.getElementsByClassName("jdmenu-submenu");
         for (var element of subMenuElements) {
             element.style.display = "none";
         }
         myself.stateOpen = false;
+    }
+
+    // Update menu in case the item objects has changed
+    update() {
+        // Remove all items
+        while (this.menuBarElement.firstChild) {
+            this.menuBarElement.removeChild(this.menuBarElement.firstChild);
+        }
+        // Reset state
+        this.stateOpen = false;
+        this.stateFocus = false;
+
+        // Re-parse the elements
+        this.#parseMenuItems(this.menuBarElement, this.menuItems);
     }
     
 }
