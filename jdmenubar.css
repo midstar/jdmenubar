@@ -1,3 +1,9 @@
+/**
+ * @file jdmenubar css library.
+ * @copyright Joel Midstjärna 2021
+ */
+
+
 :root {
     --jdmenu-bg-color: rgb(250,250,250);
     --jdmenu-border-color: rgb(200,200,200);

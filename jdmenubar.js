@@ -1,3 +1,8 @@
+/**
+ * @file jdmenubar javascript library.
+ * @copyright Joel Midstjärna 2021
+ */
+
 class MenuBar {
 
     constructor(menuBarElement, menuItems) {
