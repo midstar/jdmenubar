@@ -3,6 +3,8 @@
 A Javascript / CSS library for building a desktop look-a-like
 menu bar. 
 
+![screenshot](screenshot.jpg)
+
 # How it works
 
 Checkout example.html
