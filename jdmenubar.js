@@ -205,6 +205,6 @@ class MenuBar {
     this.stateFocus = false;
 
     // Re-parse the elements
-    this.parseMenuItems (this.menuBarElement, this.menuItems);
+    this.parseMenuItems(this.menuBarElement, this.menuItems);
   }
 }
