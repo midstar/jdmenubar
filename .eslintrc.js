@@ -13,6 +13,6 @@ module.exports = {
   rules: {
     "padded-blocks": ["error", { "blocks": "never" }],
     "space-before-function-paren": ["error", "never"],
-    "semi": [2, "always"]
+    "semi": ["error", "always", { "omitLastInOneLineBlock": true }]
   }
 }
