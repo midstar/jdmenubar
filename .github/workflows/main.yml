@@ -1,4 +1,4 @@
-name: Github Actions jdmenubar build script 
+name: Lint
 on: [push]
 jobs:
   build:
