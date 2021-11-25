@@ -1,12 +1,16 @@
 {
   "name": "jdmenubar",
   "version": "1.0.0",
-  "description": "Javascript Desktop Menu Bar",
+  "description": "Desktop Menu Bar",
   "main": "jdmenubar.js",
-  "dependencies": {},
-  "devDependencies": {
-    "eslint": "^8.3.0"
+  "dependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "eslint *.js"
   },
@@ -15,10 +19,12 @@
     "url": "git+https://github.com/midstar/jdmenubar.git"
   },
   "keywords": [
-    "Menu",
-    "Bar",
-    "Drop",
-    "Down"
+    "menu",
+    "bar",
+    "menubar",
+    "desktop",
+    "drop",
+    "down"
   ],
   "author": "Joel Midstjärna",
   "license": "MIT",
