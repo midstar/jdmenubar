@@ -1,11 +1,20 @@
 /**
  * @file jdmenubar javascript library.
+ * See {@link https://github.com/midstar/jdmenubar} for a full description.
  * @copyright Joel Midstjärna 2021
+ * @license MIT
  */
 
-// eslint-disable-next-line no-unused-vars
-class MenuBar {
+/** Class representing a menu bar.
+ *
+ */
+class MenuBar { // eslint-disable-line no-unused-vars
 
+  /**
+   * Create a menu bar.
+   * @param {Object} menuBarElement - HTML 'DIV' element where the menu bar shall be generated.
+   * @param {Object[]} menuItems - The items that represents the menu bar.
+   */
   constructor(menuBarElement, menuItems) {
     this.menuBarElement = menuBarElement;
     this.menuItems = menuItems;
@@ -168,10 +177,14 @@ class MenuBar {
     myself.stateOpen = false;
   }
 
-  // Get item with id (value if id property). Useful when updating items
-  // in the menu. Call the update() method afterwards to make the change
-  // have effect.
-  // Returns null if no such element exists.
+  /**
+   * Get item with id (value if id property). Useful when updating items
+   * in the menu. Call the update() method afterwards to make the change
+   * have effect in the menu bar.
+   *
+   * @param {string} id - Identity of the item
+   * @return {Object} - The menuItem object or null if not found
+   */
   getItemWithId(id) {
     return this.getItemWithIdOf(id, this.menuItems);
   }
@@ -193,7 +206,9 @@ class MenuBar {
     return null;
   }
 
-  // Update menu in case the item objects has changed
+  /**
+   * Update menu in case the menuItem objects has changed.
+   */
   update() {
     // Remove all items
     while (this.menuBarElement.firstChild) {
