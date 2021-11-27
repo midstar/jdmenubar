@@ -42,6 +42,7 @@ Each menuItem object may have following properties:
 | subMenuItems  | No        | An array of menuItem's for a sub menu. Cannot be combined with handler property.                    |
 | icon          | No        | Left side symbol. Can be text symbol or IMG element. Not allowed for first level of menuItem's.     |
 | shortcut      | No        | Right side text describing the short cut for this action. Not allowed for first level of menuItem's |
+| enabled       | No        | Default true. Set to false to disable (gray out) the menuItem.                                      |
 
 A special type of menuItem is the separator which can only be used in a
 sub menu and not in the "top menu". The separator shall only have one
