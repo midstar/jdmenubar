@@ -20,6 +20,7 @@ class MenuBar { // eslint-disable-line no-unused-vars
     this.menuItems = menuItems;
     this.stateOpen = false;
     this.stateFocus = false;
+    this.stateOpening = false;
     const myself = this;
     menuBarElement.classList.add('jdmenu-bar');
     menuBarElement.onmouseleave = function() {
@@ -133,6 +134,12 @@ class MenuBar { // eslint-disable-line no-unused-vars
   // myself is this object. Needed since the method is called as a
   // callback function.
   closeSubMenu(myself, subMenuElement) {
+    // To avoid immediate close on touch devices since onmouseover is
+    // always trigged before onclick.
+    if (myself.stateOpening) {
+      return;
+    }
+
     const menuItemElement = subMenuElement.jdmenu_parentItem;
     subMenuElement.style.display = 'none';
     if (menuItemElement.jdmenu_menu === myself.menuBarElement) {
@@ -165,6 +172,13 @@ class MenuBar { // eslint-disable-line no-unused-vars
       subMenuElement.style.left = pos.right;
       subMenuElement.style.top = pos.top;
     }
+
+    // To avoid immediate close on touch devices since onmouseover is
+    // always trigged before onclick.
+    myself.stateOpening = true;
+    setTimeout(function() {
+      myself.stateOpening = false;
+    }, 100);
   }
 
   // myself is this object. Needed since the method is called as a
