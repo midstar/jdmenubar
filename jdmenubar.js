@@ -165,12 +165,12 @@ class MenuBar { // eslint-disable-line no-unused-vars
     const pos = menuItemElement.getBoundingClientRect();
     if (subMenuElement.jdmenu_parentMenu === myself.menuBarElement) {
       // Drop down
-      subMenuElement.style.left = pos.left + "px";
-      subMenuElement.style.top = pos.bottom + "px";
+      subMenuElement.style.left = pos.left + 'px';
+      subMenuElement.style.top = pos.bottom + 'px';
     } else {
       // Show right
-      subMenuElement.style.left = pos.right + "px";
-      subMenuElement.style.top = pos.top + "px";
+      subMenuElement.style.left = pos.right + 'px';
+      subMenuElement.style.top = pos.top + 'px';
     }
 
     // To avoid immediate close on touch devices since onmouseover is
